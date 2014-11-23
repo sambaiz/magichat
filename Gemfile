@@ -38,3 +38,26 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'rubocop', group: [:development]
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.1.0'
+  gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'faker', '~> 1.4.3'
+  gem 'capybara', '~> 2.4.3'
+  gem 'poltergeist'
+  gem 'database_cleaner', '~> 1.3.0'
+end
+
+group :development, :test do
+  gem 'simplecov', :require => false
+end
+
+group :development do
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'terminal-notifier-guard', '~> 1.6.1'
+  gem 'guard-livereload', require: false
+  gem 'guard-rubocop', require: false
+  gem 'guard-rspec', require: false
+end
+
