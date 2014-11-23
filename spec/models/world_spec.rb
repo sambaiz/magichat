@@ -12,7 +12,6 @@ RSpec.describe World, :type => :model do
   end
 
   it "has the_end which is false by default" do
-    world = build(:world, code: nil)
-    expect(world.the_end).to be false
+    expect(build(:world).the_end).to be false
   end
 end

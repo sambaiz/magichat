@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :user do
+    association :world
     name "MyString"
     hp 1
     mp 1
-    world_id 1
     point_x 1
     point_y 1
     point_z 1

@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :post do
+    association :user
+    association :world
     text "MyString"
-    user_id 1
-    world_id 1
     point_x 1
     point_y 1
     point_z 1
