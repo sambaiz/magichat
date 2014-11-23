@@ -42,6 +42,8 @@ gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 
+gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form', branch: 'master'
+
 gem 'rubocop', group: [:development]
 
 group :development, :test do
