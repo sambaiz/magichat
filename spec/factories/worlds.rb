@@ -3,6 +3,5 @@
 FactoryGirl.define do
   factory :world do
     code "MyString"
-    the_end false
   end
 end
