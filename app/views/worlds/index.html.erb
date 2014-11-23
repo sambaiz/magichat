@@ -1,0 +1,27 @@
+<h1>Listing worlds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Freeze</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @worlds.each do |world| %>
+      <tr>
+        <td><%= world.code %></td>
+        <td><%= world.freeze %></td>
+        <td><%= link_to 'Show', world %></td>
+        <td><%= link_to 'Edit', edit_world_path(world) %></td>
+        <td><%= link_to 'Destroy', world, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New World', new_world_path %>
