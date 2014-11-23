@@ -37,5 +37,7 @@ module Magichat
           request_specs: false
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
+
+    config.app_generators.scaffold_controller = :scaffold_controller
   end
 end
