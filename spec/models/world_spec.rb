@@ -5,8 +5,14 @@ RSpec.describe World, :type => :model do
     expect(build(:world)).to be_valid
   end
 
-  it "is invalid without a code" do
-    world = build(:world, code: nil)
+  it "sets code before create" do
+    world = create(:world, code: nil)
+    expect(world.code).not_to be_nil
+  end
+
+  it "is invalid without a code on update" do
+    world = create(:world)
+    world.update(code: nil)
     world.valid?
     expect(world.errors[:code]).to include("can't be blank")
   end

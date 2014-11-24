@@ -2,6 +2,5 @@
 
 FactoryGirl.define do
   factory :world do
-    code { World.create_code }
   end
 end

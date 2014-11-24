@@ -1,10 +1,17 @@
 require 'securerandom'
 
 class World < ActiveRecord::Base
-  validates :code, presence: true
+  before_create :set_code
+  validates :code, presence: true, on: :update
   has_many :users
 
-  def self.create_code
+  def new_code
     SecureRandom.hex(8)
   end
+
+  private
+    def set_code
+      self.code = new_code
+    end
 end
+
