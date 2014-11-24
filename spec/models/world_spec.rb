@@ -20,4 +20,11 @@ RSpec.describe World, :type => :model do
   it "has the_end which is false by default" do
     expect(build(:world).the_end).to be false
   end
+
+  it "is invalid without the_end on update" do
+    world = create(:world)
+    world.update(the_end: nil)
+    world.valid?
+    expect(world.errors[:the_end]).to include("can't be blank")
+  end
 end

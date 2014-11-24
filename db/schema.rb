@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20141123170651) do
 
   create_table "worlds", force: true do |t|
     t.string   "code",                       null: false
-    t.boolean  "the_end",    default: false
+    t.boolean  "the_end",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
