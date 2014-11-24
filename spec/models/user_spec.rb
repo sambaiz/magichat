@@ -42,6 +42,10 @@ RSpec.describe User, :type => :model do
   end
 
   it "belongs to world" do
-    expect(build(:user).world).to be_instance_of(World)
+    expect(build(:user)).to belong_to(:world)
+  end
+
+  it "has many posts" do
+    expect(build(:user)).to have_many(:posts)
   end
 end

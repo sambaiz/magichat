@@ -30,10 +30,10 @@ RSpec.describe Post, :type => :model do
   end
 
   it "belongs to User" do
-    expect(build(:post).user).to be_instance_of(User)
+    expect(build(:post)).to belong_to(:user)
   end
 
   it "belongs to World" do
-    expect(build(:post).world).to be_instance_of(World)
+    expect(build(:post)).to belong_to(:world)
   end
 end

@@ -20,4 +20,12 @@ RSpec.describe World, :type => :model do
   it "has the_end which is false by default" do
     expect(build(:world).the_end?).to be_falsy
   end
+
+  it "has many users" do
+    expect(build(:world)).to have_many(:users)
+  end
+
+  it "has many posts" do
+    expect(build(:world)).to have_many(:posts)
+  end
 end
