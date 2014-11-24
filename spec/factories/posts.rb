@@ -4,9 +4,9 @@ FactoryGirl.define do
   factory :post do
     association :user
     association :world
-    text "MyString"
-    point_x 1
-    point_y 1
-    point_z 1
+    text { Faker::Lorem.sentence }
+    point_x { Faker::Number.number(3) }
+    point_y { Faker::Number.number(3) }
+    point_z { Faker::Number.number(3) }
   end
 end

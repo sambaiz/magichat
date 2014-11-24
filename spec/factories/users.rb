@@ -3,11 +3,11 @@
 FactoryGirl.define do
   factory :user do
     association :world
-    name "MyString"
-    hp 1
-    mp 1
-    point_x 1
-    point_y 1
-    point_z 1
+    name Faker::Name.name
+    hp { Faker::Number.number(3) }
+    mp { Faker::Number.number(3) }
+    point_x { Faker::Number.number(3) }
+    point_y { Faker::Number.number(3) }
+    point_z { Faker::Number.number(3) }
   end
 end
