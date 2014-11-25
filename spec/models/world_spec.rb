@@ -10,6 +10,10 @@ RSpec.describe World, :type => :model do
     expect(world.code).not_to be_nil
   end
 
+  it "sets unique code"
+
+  it "has unique code"
+
   it "is invalid without a code on update" do
     world = create(:world)
     world.update(code: nil)
