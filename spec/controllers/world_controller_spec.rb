@@ -11,18 +11,16 @@ RSpec.describe WorldController, :type => :controller do
 
       it 'renders the :show template' do
         world = create(:world)
-        get :show, code: world
+        get :show, code: world.code
         expect(response).to render_template :show
       end
     end
 
     context 'with not existing world :code' do
-      it 'assigns the nil to @world' do
+      it 'redirects to root_url' do
         get :show, code: World.new.new_code
-        expect(assigns(:world)).to be_nil
+        expect(response).to redirect_to root_url
       end
-
-      it 'redirects to world#index'
     end
   end
 end
