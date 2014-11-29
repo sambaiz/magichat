@@ -1,19 +1,13 @@
-head
-  meta charset="UTF-8" /
-  title チャットしようぜ
-  = javascript_include_tag "application"
-  = javascript_include_tag "chat"
-body
-  #gid aiueo
-  h1 Chat Sample
-  div ようこそ、hogehogeさん
-  /! jsに食わせたい情報などなど
-  #username style="display:none;"  = "hogehoge"
-  /! チャットのタイムラインとかテキストボックスとか
-  #timeline style="margin:20px;" 
-    #chat data-uri="#{request.host}:3000/websocket"
-  hr/
-  div
-    form.form-horizontal
-      input#msgbody.form-control type="text" /
-      input#send.btn.btn-primary type="button" value="送信" /
+.row
+  .col-lg-2.col-md-1
+  .col-lg-8.col-md-10
+    .well.bs-component.inputform#inputname
+      = form_for(:user, :html => {:class => 'form-horizontal'}, url: root_path) do |f|
+        fieldset
+          legend 汝の名を唱えろ
+          .col-lg-1.col-xs-1
+          .col-lg-10.col-xs-10
+            .form-group
+              = f.text_field :name, autofocus: true, :class => 'form-control'
+            .form-group.pull-right
+              = f.submit "詠唱", :class => 'btn btn-primary'
