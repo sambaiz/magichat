@@ -10,7 +10,7 @@ RSpec.describe World, :type => :model do
     expect(world.code).not_to be_nil
   end
 
-  it "has unique code" do
+  it "has a unique code" do
     expect(build(:world)).to validate_uniqueness_of :code
   end
 
