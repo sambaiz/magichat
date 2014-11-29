@@ -19,7 +19,7 @@ class @ChatClass
 
   receiveMessage: (message) =>
     console.log message
-    $('#chat').append "#{message.name}「#{message.body}」<br/>"
+    $('#chat').append "#{message.name} : #{message.body} <br/>"
 
 $ ->
   window.chatClass = new ChatClass($('#chat').data('uri'), true)

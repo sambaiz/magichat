@@ -2,7 +2,7 @@
   .col-lg-2.col-md-1
   .col-lg-8.col-md-10
     .well.bs-component.inputform#inputname
-      = form_for(:user, :html => {:class => 'form-horizontal'}, url: root_path) do |f|
+      = form_for(@user, :html => {:class => 'form-horizontal'}, url: world_create_path) do |f|
         fieldset
           legend 汝の名を唱えろ
           .col-lg-1.col-xs-1

@@ -1,15 +1,9 @@
-head
-  meta charset="UTF-8" /
-  title チャットしようぜ
   = javascript_include_tag "chat"
-body
-  #gid @world.code
+  #gid = @world.code
   h1 The world
-  div ようこそ、hogehogeさん
-/! jsに食わせたい情報などなど
-  #username style="display:none;"  = "hogehoge"
-/! チャットのタイムラインとかテキストボックスとか
-  #timeline style="margin:20px;" 
+  div = "ようこそ、#{@user.name}さん"
+  #username style="display:none;"  = @user.name
+  #timeline style="margin:20px;"
     #chat data-uri="#{request.host}:3000/websocket"
   hr/
   div

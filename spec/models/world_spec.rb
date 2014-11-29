@@ -10,9 +10,9 @@ RSpec.describe World, :type => :model do
     expect(world.code).not_to be_nil
   end
 
-  it "sets unique code"
-
-  it "has unique code"
+  it "has unique code" do
+    expect(build(:world)).to validate_uniqueness_of :code
+  end
 
   it "is invalid without a code on update" do
     world = create(:world)
@@ -26,10 +26,10 @@ RSpec.describe World, :type => :model do
   end
 
   it "has many users" do
-    expect(build(:world)).to have_many(:users)
+    expect(build(:world)).to have_many :users
   end
 
   it "has many posts" do
-    expect(build(:world)).to have_many(:posts)
+    expect(build(:world)).to have_many :posts
   end
 end
