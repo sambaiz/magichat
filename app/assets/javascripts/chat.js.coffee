@@ -1,17 +1,20 @@
 class @ChatClass
   constructor: (url, useWebsocket) ->
+    group_id = $('#gid').text()
     @dispatcher = new WebSocketRails(url, useWebsocket)
+    @channel = @dispatcher.subscribe(group_id)
     console.log(url)
     @bindEvents()
 
   bindEvents: () =>
     $('#send').on 'click', @sendMessage
-    @dispatcher.bind 'new_message', @receiveMessage
+    @channel.bind 'new_message', @receiveMessage
 
   sendMessage: (event) =>
     user_name = $('#username').text()
     msg_body = $('#msgbody').val()
-    @dispatcher.trigger 'new_message', { name: user_name , body: msg_body }
+    group_id = $('#gid').text()
+    @dispatcher.trigger 'new_message', { name: user_name , body: msg_body, gid: group_id }
     $('#msgbody').val('')
 
   receiveMessage: (message) =>

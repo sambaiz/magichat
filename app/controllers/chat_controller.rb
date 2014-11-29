@@ -8,7 +8,7 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def new_message
-    logger.debug("Call new_message : #{message}")
-    broadcast_message :new_message, message
+    gid = message[:gid]
+    WebsocketRails[gid].trigger(:new_message, message)
   end
 end
