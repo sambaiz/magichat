@@ -7,6 +7,11 @@ class WorldController < ApplicationController
     @world = World.create
     @user = User.new(user_params)
     @world.users << @user
+    if @user.id.nil?
+      flash[:alert] =  @user.errors.to_a
+      redirect_to root_url
+      return
+    end
     session[:user_id] = @user.id
     redirect_to chat_url(@world.code)
   end

@@ -11,6 +11,10 @@ RSpec.describe User, :type => :model do
     expect(user.errors[:name]).to include("can't be blank")
   end
 
+  it "has a unique name" do
+    expect(build(:user)).to validate_uniqueness_of :name
+  end
+
   it "sets hp before create" do
     user = create(:user, hp: nil)
     expect(user.hp).not_to be_nil
@@ -42,9 +46,5 @@ RSpec.describe User, :type => :model do
 
   it "has many posts" do
     expect(build(:user)).to have_many(:posts)
-  end
-
-  it "has a unique name" do
-    expect(build(:user)).to validate_uniqueness_of :name
   end
 end
