@@ -5,13 +5,7 @@ class WorldController < ApplicationController
 
   def create
     @world = World.create
-    @user = User.new(user_params)
-    @world.users << @user
-    if @user.id.nil?
-      flash[:alert] =  @user.errors.to_a
-      redirect_to root_url
-      return
-    end
+    (redirect_to root_url) && return unless @user = user_create_check
     session[:user_id] = @user.id
     redirect_to chat_url(@world.code)
   end
@@ -19,12 +13,24 @@ class WorldController < ApplicationController
   def show
     @world = World.where(code: params[:code]).first
     @user = User.where(id: session[:user_id]).first
-    redirect_to root_url if @world.nil?
+    redirect_to root_url if @world.nil? || !@user || @user.world != @world
   end
 
   private
     def user_params
-      params[:user] = {name: params[:user][:name], hp: 100, mp: 100, point_x: 100, point_y: 100, point_z: 100} # dummy
-      params.require(:user).permit(:name, :hp, :mp, :point_x, :point_y, :point_z)
+      params.require(:user).permit(:name)
+    end
+
+    def user_create_check
+      user = user_create
+      return user if user.errors.empty?
+      flash[:alert] =  user.errors.to_a
+      nil
+    end
+
+    def user_create
+      user = User.new(user_params)
+      @world.users << user
+      user
     end
 end

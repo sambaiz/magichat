@@ -5,15 +5,63 @@ RSpec.describe User, :type => :model do
     expect(build(:user)).to be_valid
   end
 
-  it "is invalid without name" do
-    user = build(:user, name: nil)
-    user.valid?
-    expect(user.errors[:name]).to include("can't be blank")
+  describe 'varidation' do
+    it "is invalid without name" do
+      user = build(:user, name: nil)
+      user.valid?
+      expect(user.errors[:name]).to include("can't be blank")
+    end
+
+    it "has a unique name" do
+      expect(build(:user)).to validate_uniqueness_of :name
+    end
+
+    it "is invalid without a hp on update" do
+      user = create(:user)
+      user.update(hp: nil)
+      user.valid?
+      expect(user.errors[:hp]).to include("can't be blank")
+    end
+
+    it "is invalid without a mp on update" do
+      user = create(:user)
+      user.update(mp: nil)
+      user.valid?
+      expect(user.errors[:mp]).to include("can't be blank")
+    end
+
+    it "is invalid without a point_x on update" do
+      user = create(:user)
+      user.update(point_x: nil)
+      user.valid?
+      expect(user.errors[:point_x]).to include("can't be blank")
+    end
+
+    it "is invalid without a point_y on update" do
+      user = create(:user)
+      user.update(point_y: nil)
+      user.valid?
+      expect(user.errors[:point_y]).to include("can't be blank")
+    end
+
+    it "is invalid without a point_z on update" do
+      user = create(:user)
+      user.update(point_z: nil)
+      user.valid?
+      expect(user.errors[:point_z]).to include("can't be blank")
+    end
   end
 
-  it "has a unique name" do
-    expect(build(:user)).to validate_uniqueness_of :name
+  describe 'relation' do
+    it "belongs to world" do
+      expect(build(:user)).to belong_to(:world)
+    end
+
+    it "has many posts" do
+      expect(build(:user)).to have_many(:posts)
+    end
   end
+
 
   it "sets hp before create" do
     user = create(:user, hp: nil)
@@ -38,13 +86,5 @@ RSpec.describe User, :type => :model do
   it "sets point_z before create" do
     user = create(:user, point_z: nil)
     expect(user.point_z).not_to be_nil
-  end
-
-  it "belongs to world" do
-    expect(build(:user)).to belong_to(:world)
-  end
-
-  it "has many posts" do
-    expect(build(:user)).to have_many(:posts)
   end
 end

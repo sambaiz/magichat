@@ -8,15 +8,11 @@ class World < ActiveRecord::Base
   has_many :posts
 
   def new_code
-    counter = 0
-    code = nil
     loop do
       code = SecureRandom.hex(8)
       world = World.where(code: code).first
-      break if world.nil? || counter > 100
-      counter += 1
+      return code if world.nil?
     end
-    counter > 100 ? nil : code
   end
 
   private
