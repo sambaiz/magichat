@@ -51,6 +51,19 @@ RSpec.describe WorldController, :type => :controller do
         expect(response).to redirect_to chat_url(assigns(:world).code)
       end
     end
+
+    context 'with user :name is blank' do
+      it 'flash existing name alert' do
+        post :create, user: attributes_for(:user, name: "")
+        expect(flash[:alert]).to include("Name can't be blank")
+      end
+
+      it 'redirects to root_url' do
+        user = create(:user)
+        post :create, user: attributes_for(:user, name: user.name)
+        expect(response).to redirect_to root_url
+      end
+    end
   end
 
   describe 'GET #show' do
