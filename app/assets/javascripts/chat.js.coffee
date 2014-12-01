@@ -8,7 +8,13 @@ class @ChatClass
 
   bindEvents: () =>
     $('#send').on 'click', @sendMessage
+    $('#msgbody').on 'keypress', @pressKey
     @channel.bind 'new_message', @receiveMessage
+
+  pressKey: (event) =>
+    if event.which == 13
+      @sendMessage(event)
+      false
 
   sendMessage: (event) =>
     user_name = $('#username').text()
