@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :user do
     association :world
-    name Faker::Name.name
+    name { Faker::Name.name }
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user_log do
-    user_id 1
-    post_id 1
+    association :user
+    association :post
   end
 end

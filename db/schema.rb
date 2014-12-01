@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20141201170603) do
   add_index "posts", ["world_id"], name: "index_posts_on_world_id"
 
   create_table "user_logs", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "post_id"
+    t.integer  "user_id",    null: false
+    t.integer  "post_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
