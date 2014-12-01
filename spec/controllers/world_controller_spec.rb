@@ -10,6 +10,12 @@ RSpec.describe WorldController, :type => :controller do
 
   describe 'POST #create' do
     context 'with existing user :name' do
+      it 'flash existing name alert' do
+        user = create(:user)
+        post :create, user: attributes_for(:user, name: user.name)
+        expect(flash[:alert]).to include("Name has already been taken")
+      end
+
       it 'redirects to root_url' do
         user = create(:user)
         post :create, user: attributes_for(:user, name: user.name)
