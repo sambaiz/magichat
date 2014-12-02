@@ -50,6 +50,13 @@ RSpec.describe User, :type => :model do
       user.valid?
       expect(user.errors[:point_z]).to include("can't be blank")
     end
+
+    it "is invalid without a token on update" do
+      user = create(:user)
+      user.update(token: nil)
+      user.valid?
+      expect(user.errors[:token]).to include("can't be blank")
+    end
   end
 
   describe 'relation' do
@@ -86,5 +93,10 @@ RSpec.describe User, :type => :model do
   it "sets point_z before create" do
     user = create(:user, point_z: nil)
     expect(user.point_z).not_to be_nil
+  end
+
+  it "sets token before create" do
+    user = create(:user, token: nil)
+    expect(user.token).not_to be_nil
   end
 end

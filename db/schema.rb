@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201170603) do
+ActiveRecord::Schema.define(version: 20141202130250) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -70,15 +70,16 @@ ActiveRecord::Schema.define(version: 20141201170603) do
   add_index "user_logs", ["user_id", "post_id"], name: "index_user_logs_on_user_id_and_post_id", unique: true
 
   create_table "users", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "hp",         null: false
-    t.integer  "mp",         null: false
-    t.integer  "world_id",   null: false
-    t.integer  "point_x",    null: false
-    t.integer  "point_y",    null: false
-    t.integer  "point_z",    null: false
+    t.string   "name",                    null: false
+    t.integer  "hp",                      null: false
+    t.integer  "mp",                      null: false
+    t.integer  "world_id",                null: false
+    t.integer  "point_x",                 null: false
+    t.integer  "point_y",                 null: false
+    t.integer  "point_z",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token",      default: "", null: false
   end
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true

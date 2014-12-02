@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates :point_x, presence: true, on: :update
   validates :point_y, presence: true, on: :update
   validates :point_z, presence: true, on: :update
+  validates :token, presence: true, on: :update
 
   private
     def set_data
@@ -17,5 +18,6 @@ class User < ActiveRecord::Base
       self.point_x = 100
       self.point_y = 100
       self.point_z = 1
+      self.token = SecureRandom.hex(8)
     end
 end
