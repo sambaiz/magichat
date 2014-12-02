@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
   validates :point_z, presence: true, on: :update
   validates :token, presence: true, on: :update
 
+  def update_token
+    self.token = SecureRandom.hex(8)
+    save
+  end
+
   private
     def set_data
       self.hp = 100

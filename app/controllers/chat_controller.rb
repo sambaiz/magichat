@@ -8,7 +8,11 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def new_message
-    gid = message[:gid]
-    WebsocketRails[gid].trigger(:new_message, message)
+    token = message[:token]
+    user = User.where(id: session[:user_id]).first
+    return if user.nil? || user.token != token
+    WebsocketRails[token].trigger(:new_message, message)
+    user.update_token
+    WebsocketRails[token].trigger(:new_token, user.token)
   end
 end

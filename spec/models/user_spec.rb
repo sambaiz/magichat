@@ -69,6 +69,15 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe 'method' do
+    it 'update token' do
+      user = create(:user)
+      old_token = user.token
+      user.update_token
+      expect(user.token).not_to eq old_token
+    end
+  end
+
 
   it "sets hp before create" do
     user = create(:user, hp: nil)

@@ -1,8 +1,8 @@
 class @ChatClass
   constructor: (url, useWebsocket) ->
-    group_id = $('#gid').text()
+    token = $('#token').text()
     @dispatcher = new WebSocketRails(url, useWebsocket)
-    @channel = @dispatcher.subscribe(group_id)
+    @channel = @dispatcher.subscribe(token)
     console.log(url)
     @bindEvents()
 
@@ -10,6 +10,11 @@ class @ChatClass
     $('#send').on 'click', @sendMessage
     $('#msgbody').on 'keypress', @pressKey
     @channel.bind 'new_message', @receiveMessage
+    @channel.bind 'new_token', @receiveToken
+
+  unbindEvents: () =>
+    $("#send").unbind()
+    $("#msgbody").unbind()
 
   pressKey: (event) =>
     if event.which == 13
@@ -17,15 +22,22 @@ class @ChatClass
       false
 
   sendMessage: (event) =>
+    token = $('#token').text()
     user_name = $('#username').text()
     msg_body = $('#msgbody').val()
-    group_id = $('#gid').text()
-    @dispatcher.trigger 'new_message', { name: user_name , body: msg_body, gid: group_id }
+    @dispatcher.trigger 'new_message', { token: token, body: msg_body }
     $('#msgbody').val('')
 
   receiveMessage: (message) =>
     console.log message
     $('#chat').append "#{message.name} : #{message.body} <br/>"
+
+  receiveToken: (message) =>
+    console.log message
+    $('#token').text(message)
+    @channel = @dispatcher.subscribe(message)
+    @unbindEvents()
+    @bindEvents()
 
 $ ->
   window.chatClass = new ChatClass($('#chat').data('uri'), true)

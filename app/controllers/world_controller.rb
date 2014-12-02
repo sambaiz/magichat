@@ -13,6 +13,7 @@ class WorldController < ApplicationController
   def show
     @world = World.where(code: params[:code]).first
     @user = User.where(id: session[:user_id]).first
+    @user.update_token
     redirect_to root_url if @world.nil? || !@user || @user.world != @world
   end
 
