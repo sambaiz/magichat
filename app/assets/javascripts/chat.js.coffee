@@ -3,7 +3,6 @@ class @ChatClass
     @dispatcher = new WebSocketRails(url, useWebsocket)
     token = @generateToken()
     console.log(url)
-    @bindEvents()
 
   bindEvents: () =>
     $('#send').on 'click', @sendMessage
@@ -12,7 +11,6 @@ class @ChatClass
     @channel.bind 'request_new_token', @sendToken
 
   unbindEvents: () =>
-    @channnel.unbind
     $("#send").unbind()
     $("#msgbody").unbind()
 
@@ -33,14 +31,14 @@ class @ChatClass
     $('#chat').append "#{message}<br/>"
 
   sendToken: =>
-    @unbindEvents()
     @dispatcher.trigger 'new_token', { new_token: @generateToken() }
-    @bindEvents()
 
   generateToken: =>
     token = Math.random().toString(36).slice(-12)
     console.log token
     @channel = @dispatcher.subscribe(token)
+    @unbindEvents()
+    @bindEvents()
     token
 
 $ ->
