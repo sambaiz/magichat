@@ -16,6 +16,15 @@ class User < ActiveRecord::Base
     save
   end
 
+  def self.near(point_x, point_y, point_z)
+    users = User.all
+    near = []
+    users.each do |user|
+      near << user if (user.point_x - point_x).abs < 10 && (user.point_y - point_y).abs < 10 && user.point_z == point_z
+    end
+    near
+  end
+
   private
     def set_data
       self.hp = 100

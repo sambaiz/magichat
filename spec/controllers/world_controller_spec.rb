@@ -24,10 +24,10 @@ RSpec.describe WorldController, :type => :controller do
     end
 
     context 'with not existing user :name' do
-      it 'saves the new world in the database' do
+      it 'saves the new world in   the database' do
         expect{
           post :create, user: attributes_for(:user)
-        }.to change(World, :count).by(1)
+        }.to change(World, :count).by(1) #attributes_forでworld増えてない？
       end
 
       it 'saves the new user in the database' do

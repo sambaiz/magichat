@@ -30,7 +30,7 @@ class @ChatClass
 
   receiveMessage: (message) =>
     console.log message
-    $('#chat').append "#{message.name} : #{message.body} <br/>"
+    $('#chat').append "#{message}<br/>"
 
   receiveToken: (message) =>
     console.log message
