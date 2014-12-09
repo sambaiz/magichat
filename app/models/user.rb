@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     users.length == 0
   end
 
-  def set_random_token()
+  def set_random_token
     loop do
       token = SecureRandom.hex(8)
       next unless User.valid_token?(token)

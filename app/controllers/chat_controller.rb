@@ -49,15 +49,15 @@ class ChatController < WebsocketRails::BaseController
         user.save
       else
         reset_token(token)
-        WebsocketRails[token].trigger(:request_new_token, token)
       end
     end
 
     def reset_token(token)
       users = User.where(token: token)
-      for user in users
+      users.each do |user|
         user.set_random_token()
         user.save
       end
+      WebsocketRails[token].trigger(:request_new_token, token)
     end
 end
