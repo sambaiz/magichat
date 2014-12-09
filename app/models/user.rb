@@ -25,13 +25,27 @@ class User < ActiveRecord::Base
     near
   end
 
+  def self.valid_token?(token)
+    users = User.where(token: token)
+    users.length == 0
+  end
+
+  def set_random_token()
+    loop do
+      token = SecureRandom.hex(8)
+      next unless User.valid_token?(token)
+      self.token = token
+      break
+    end
+  end
+
   private
     def set_data
       self.hp = 100
       self.mp = 100
       self.point_x = 100
       self.point_y = 100
-      self.point_z = 1
-      self.token = SecureRandom.hex(8)
+      self.point_z = 100
+      set_random_token
     end
 end
