@@ -8,7 +8,8 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def new_message
-    user = User.where(id: session[:user_id]).first
+    world_code = message[:world_code]
+    user = User.where(id: session[:user_id][world_code]).first
     return if user.nil?
     update_token(user, message[:new_token])
     post = Post.create(user: user, world: user.world, text: message[:body],
@@ -18,7 +19,8 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def new_token
-    user = User.where(id: session[:user_id]).first
+    world_code = message[:world_code]
+    user = User.where(id: session[:user_id][world_code]).first
     return if user.nil?
     token = message[:new_token]
     update_token(user, token)
@@ -27,7 +29,7 @@ class ChatController < WebsocketRails::BaseController
   private
 
     def send_message_all(post)
-      users = User.near(post.point_x, post.point_y, post.point_z)
+      users = User.near(post.world, post.point_x, post.point_y, post.point_z)
       users.each do |user|
         send_message(post, user)
       end

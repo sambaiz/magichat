@@ -1,5 +1,6 @@
 class @ChatClass
   constructor: (url, useWebsocket) ->
+    @world_code = $('#world_code').text()
     @dispatcher = new WebSocketRails(url, useWebsocket)
     token = @generateToken()
     console.log(url)
@@ -23,7 +24,7 @@ class @ChatClass
     token = @generateToken()
     user_name = $('#username').text()
     msg_body = $('#msgbody').val()
-    @dispatcher.trigger 'new_message', { new_token: token, body: msg_body }
+    @dispatcher.trigger 'new_message', { world_code: @world_code, new_token: token, body: msg_body }
     $('#msgbody').val('')
 
   receiveMessage: (message) =>
@@ -31,7 +32,7 @@ class @ChatClass
     $('#chat').append "#{message}<br/>"
 
   sendToken: =>
-    @dispatcher.trigger 'new_token', { new_token: @generateToken() }
+    @dispatcher.trigger 'new_token', { world_code: @world_code, new_token: @generateToken() }
 
   generateToken: =>
     token = Math.random().toString(36).slice(-12)

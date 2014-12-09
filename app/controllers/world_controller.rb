@@ -6,15 +6,15 @@ class WorldController < ApplicationController
   def create
     @world = World.create
     (redirect_to root_url) && return unless @user = user_create_check
-    session[:user_id] = @user.id
+    session[:user_id] = {} if session[:user_id].nil?
+    session[:user_id] = session[:user_id].merge({ @world.code => @user.id })
     redirect_to chat_url(@world.code)
   end
 
   def show
     @world = World.where(code: params[:code]).first
-    @user = User.where(id: session[:user_id]).first
-    @user.update_token
-    redirect_to root_url if @world.nil? || !@user || @user.world != @world
+    @user = User.where(id: session[:user_id][@world.code]).first
+    redirect_to root_url if @world.nil? || @user.nil? || @user.world != @world
   end
 
   private
