@@ -13,7 +13,7 @@ class WorldController < ApplicationController
 
   def show
     @world = World.where(code: params[:code]).first
-    @user = User.where(id: session[:user_id][@world.code]).first
+    @user = User.where(id: session[:user_id][@world.code]).first unless @world.nil?
     redirect_to root_url if @world.nil? || @user.nil? || @user.world != @world
   end
 
