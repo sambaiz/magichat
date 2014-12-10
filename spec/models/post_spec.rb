@@ -31,6 +31,14 @@ RSpec.describe Post, :type => :model do
     end
   end
 
+  describe 'analyze' do
+    it "return fire effect if argument is :ファイア" do
+      post = create(:post, text: ":ファイア")
+      effect = post.analyze()
+      expect(effect[0]).to match('ファイアを唱えた')
+    end
+  end
+
   describe 'relation' do
     it "belongs to User" do
       expect(build(:post)).to belong_to(:user)
