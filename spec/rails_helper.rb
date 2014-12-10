@@ -24,6 +24,7 @@ require 'rspec/rails'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|

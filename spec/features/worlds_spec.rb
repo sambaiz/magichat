@@ -31,4 +31,15 @@ feature 'World walking' do
     expect(current_path).to eq root_path
     expect(page).to have_content "Name can't be blank"
   end
+
+  # UGOKAN
+  #scenario 'input text and send', js: true do
+  #  user = build(:user, world: nil)
+  #  visit root_path
+  #  fill_in 'user_name', with: user.name
+  #  click_button '詠唱'
+  #  fill_in 'msgbody', with: "テスト"
+  #  click_button '送信'
+  #  expect(page).to have_content "テスト", :wait => 10
+  #end
 end
