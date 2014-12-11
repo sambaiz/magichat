@@ -32,10 +32,16 @@ RSpec.describe Post, :type => :model do
   end
 
   describe 'analyze' do
-    it "return fire effect if argument is :ファイア" do
-      post = create(:post, text: ":ファイア")
+    it "return no effect if argument is not start with :" do
+      post = create(:post, text: "fire")
       effect = post.analyze()
-      expect(effect[0]).to match('ファイアを唱えた')
+      expect(effect.size).to eq 0
+    end
+
+    it "return fire effect if argument is :fire" do
+      post = create(:post, text: ":fire")
+      effect = post.analyze()
+      expect(effect[0]).to match('casts fire')
     end
   end
 
