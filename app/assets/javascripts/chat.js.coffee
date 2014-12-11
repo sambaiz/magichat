@@ -2,6 +2,7 @@ class @ChatClass
   constructor: (url, useWebsocket) ->
     @world_code = $('#world_code').text()
     @dispatcher = new WebSocketRails(url, useWebsocket)
+    @messages = []
     token = @generateToken()
     console.log(url)
 
@@ -59,9 +60,12 @@ class @ChatClass
     console.log message
     switch message["type"]
       when "plain"
-        $('#chat').append "#{message['message']}<br/>"
+        @messages.push("#{@san(message['message'])}<br/>")
       when "effect"
-        $('#chat').append "<h1>#{message['message']}</h1><br/>"
+        @messages.push("<h1>#{@san(message['message'])}</h1><br/>")
+    if @messages.length > 5
+      @messages.shift()
+    $('#chat').html(@messages)
 
   sendToken: =>
     @dispatcher.trigger 'new_token', { world_code: @world_code, new_token: @generateToken() }
@@ -73,6 +77,10 @@ class @ChatClass
     @unbindEvents()
     @bindEvents()
     token
+
+  san: (str) =>
+    str.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 
 $ ->
   window.chatClass = new ChatClass($('#chat').data('uri'), true)
