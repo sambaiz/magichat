@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
     if self.text.start_with?(":")
       Magic.new(self.text[1..-1], self.user, self.world).effects
     else
-      [self.text]
+      [{:type => :plain, :message => self.text}]
     end
   end
 end
@@ -29,6 +29,7 @@ class Magic
   end
 
   def fire(user, world)
-    @effects << "#{user.name}はファイアを唱えた。"
+    @effects << {:type => :effect, :message => "#{user.name}はファイアを唱えた。"}
+    @effects << {:type => :effect, :message => "しかし効果はなかった！"}
   end
 end

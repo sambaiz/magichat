@@ -29,7 +29,11 @@ class @ChatClass
 
   receiveMessage: (message) =>
     console.log message
-    $('#chat').append "#{message}<br/>"
+    switch message["type"]
+      when "plain"
+        $('#chat').append "#{message['message']}<br/>"
+      when "effect"
+        $('#chat').append "<h1>#{message['message']}</h1><br/>"
 
   sendToken: =>
     @dispatcher.trigger 'new_token', { world_code: @world_code, new_token: @generateToken() }
