@@ -42,6 +42,9 @@ class ChatController < WebsocketRails::BaseController
 
     def fire_torigger(post, user)
       WebsocketRails[user.token].trigger(:new_message, post.text)
+      for effect in post.analyze
+        WebsocketRails[user.token].trigger(:new_message, effect)
+      end
     end
 
     def update_token(user, token)

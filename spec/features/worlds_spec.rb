@@ -25,7 +25,7 @@ feature 'World walking' do
   scenario 'input blank user name and call' do
     visit root_path
     expect{
-      fill_in 'user_name', with: ""
+      fill_in 'user_name', with: ''
       click_button '詠唱'
     }.not_to change(User, :count)
     expect(current_path).to eq root_path

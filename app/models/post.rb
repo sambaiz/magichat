@@ -6,10 +6,12 @@ class Post < ActiveRecord::Base
   validates :point_y, presence: true
   validates :point_z, presence: true
 
-  def analyze
-    return [] unless self.text.start_with?(":")
-    p self.text.slice(1, -1)
-    Magic.new(self.text[1..-1], self.user, self.world).effects
+  def messages
+    if self.text.start_with?(":")
+      Magic.new(self.text[1..-1], self.user, self.world).effects
+    else
+      [self.text]
+    end
   end
 end
 
@@ -27,6 +29,6 @@ class Magic
   end
 
   def fire(user, world)
-    @effects << "#{user.name} casts fire"
+    @effects << "#{user.name}はファイアを唱えた。"
   end
 end

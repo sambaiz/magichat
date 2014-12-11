@@ -32,16 +32,19 @@ RSpec.describe Post, :type => :model do
   end
 
   describe 'analyze' do
-    it "return no effect if argument is not start with :" do
+    it "return normal message if argument is not start with :" do
       post = create(:post, text: "fire")
-      effect = post.analyze()
-      expect(effect.size).to eq 0
+      expect(post.messages[0]).to eq 'fire'
     end
 
-    it "return fire effect if argument is :fire" do
+    it "return none if argument is start with : but magic don't exist" do
+      post = create(:post, text: ":aaaaaaaa")
+      expect(post.messages.size).to eq 0
+    end
+
+    it "return effect messages effect if argument is start with : and magic exist" do
       post = create(:post, text: ":fire")
-      effect = post.analyze()
-      expect(effect[0]).to match('casts fire')
+      expect(post.messages[0]).to match('はファイアを唱えた')
     end
   end
 
